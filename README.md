@@ -1,18 +1,13 @@
-# react-native-pulse-loader
-tinder-like loader for your react native app
+<h1 align="center">Pulse Loader for React Native</h1>
+<p align="center">tinder-like loader for your react native app</p>
 
-![react-native-pulse-loader demo](http://i.giphy.com/l0MYz2cMbOryuyPZu.gif)
+<p align="center">
+  <img src="http://i.giphy.com/l0MYz2cMbOryuyPZu.gif" />
+</p>
 
 ### Installation
 ```bash
 npm i react-native-pulse-loader --save
-```
-
-### Usage
-
-First, require it from your app's JavaScript files with:
-```bash
-import PulseLoader from 'react-native-pulse-loader';
 ```
 
 ### Example
@@ -24,7 +19,7 @@ import PulseLoader from 'react-native-pulse-loader';
 class App extends React.Component {
   render() {
     return (
-      <LocationPulseLoader
+      <PulseLoader
         avatar={'https://scontent-fra3-1.cdninstagram.com/t51.2885-15/e35/11429705_386886401514376_550879228_n.jpg'}
       />
     );
