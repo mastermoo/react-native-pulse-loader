@@ -32,7 +32,7 @@ export default class LocationPulseLoader extends React.Component {
     this.counter++;
   }
 
-  onPressIn() {
+  onPressIn = () => {
     Animated.timing(this.anim, {
       toValue: this.props.pressInValue,
       duration: this.props.pressDuration,
@@ -40,7 +40,7 @@ export default class LocationPulseLoader extends React.Component {
     }).start(() => clearInterval(this.setInterval));
   }
 
-  onPressOut() {
+  onPressOut = () => {
     Animated.timing(this.anim, {
       toValue: 1,
       duration: this.props.pressDuration,
@@ -67,8 +67,8 @@ export default class LocationPulseLoader extends React.Component {
 
         <TouchableOpacity
           activeOpacity={1}
-          onPressIn={this.onPressIn.bind(this)}
-          onPressOut={this.onPressOut.bind(this)}
+          onPressIn={this.onPressIn}
+          onPressOut={this.onPressOut}
           style={{
 						transform: [{
 							scale: this.anim
