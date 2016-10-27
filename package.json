@@ -28,6 +28,6 @@
   "homepage": "https://github.com/mastermoo/react-native-pulse-loader#readme",
   "dependencies": {
     "mobx": "^2.4.3",
-    "mobx-react": "^3.5.5",
+    "mobx-react": "^3.5.5"
   }
 }
