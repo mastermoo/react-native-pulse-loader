@@ -1,98 +1,100 @@
 import React from 'react';
 import { View, Image, TouchableOpacity, Animated, Easing } from 'react-native';
 import Pulse from './Pulse';
+import { observer } from "mobx-react/native";
+import { observable } from 'mobx';
 
-
+@observer
 export default class LocationPulseLoader extends React.Component {
-	constructor(props) {
-		super(props);
-	
-		this.state = {
-			circles: []
-		};
+  @observable circles = [];
 
-		this.counter = 1;
-		this.setInterval = null;
-		this.anim = new Animated.Value(1);
-	}
+  constructor(props) {
+    super(props);
 
-	componentDidMount() {
-		this.setCircleInterval();
-	}
+    this.counter = 1;
+    this.setInterval = null;
+    this.anim = new Animated.Value(1);
+    this.addCircle = this.addCircle.bind(this);
+    this.setCircleInterval = this.setCircleInterval.bind(this);
+  }
 
-	setCircleInterval() {
-		this.setInterval = setInterval(this.addCircle.bind(this), this.props.interval);
-		this.addCircle();
-	}
+  componentDidMount() {
+    this.setCircleInterval();
+  }
 
-	addCircle() {
-		this.setState({ circles: [...this.state.circles, this.counter] });
-		this.counter++;
-	}
+  setCircleInterval() {
+    this.setInterval = setInterval(this.addCircle, this.props.interval);
+    this.addCircle();
+  }
 
-	onPressIn() {
-		Animated.timing(this.anim, {
-			toValue: this.props.pressInValue,
-			duration: this.props.pressDuration,
-			easing: this.props.pressInEasing,
-		}).start(() => clearInterval(this.setInterval));
-	}
+  addCircle() {
+    this.circles = [...this.circles, this.counter];
+    this.counter++;
+  }
 
-	onPressOut() {
-		Animated.timing(this.anim, {
-			toValue: 1,
-			duration: this.props.pressDuration,
-			easing: this.props.pressOutEasing,
-		}).start(this.setCircleInterval.bind(this));
-	}
+  onPressIn() {
+    Animated.timing(this.anim, {
+      toValue: this.props.pressInValue,
+      duration: this.props.pressDuration,
+      easing: this.props.pressInEasing,
+    }).start(() => clearInterval(this.setInterval));
+  }
 
-	render() {
-		const { size, avatar, avatarBackgroundColor, interval } = this.props;
+  onPressOut() {
+    Animated.timing(this.anim, {
+      toValue: 1,
+      duration: this.props.pressDuration,
+      easing: this.props.pressOutEasing,
+    }).start(this.setCircleInterval);
+  }
 
-		return (
-			<View style={{
+  render() {
+    const { size, avatar, avatarBackgroundColor, interval } = this.props;
+
+    return (
+      <View style={{
 				flex: 1,
 				backgroundColor: 'transparent',
 				justifyContent: 'center',
 				alignItems: 'center',
 			}}>
-				{this.state.circles.map((circle) => (
-					<Pulse
-						key={circle}
-						{...this.props}
-					/>
-				))}
+        {this.circles.map((circle) => (
+          <Pulse
+            key={circle}
+            {...this.props}
+          />
+        ))}
 
-				<TouchableOpacity
-					activeOpacity={1}
-					onPressIn={this.onPressIn.bind(this)}
-					onPressOut={this.onPressOut.bind(this)}
-					style={{
+        <TouchableOpacity
+          activeOpacity={1}
+          onPressIn={this.onPressIn.bind(this)}
+          onPressOut={this.onPressOut.bind(this)}
+          style={{
 						transform: [{
 							scale: this.anim
 						}]
 					}}
-				>
-					<Image
-						source={{ uri: avatar }}
-						style={{
+        >
+          <Image
+            source={this.props.source}
+            style={{
 							width: size,
 							height: size,
 							borderRadius: size/2,
 							backgroundColor: avatarBackgroundColor
 						}}
-					/>
-				</TouchableOpacity>
-			</View>
-		);
-	}	
+          />
+        </TouchableOpacity>
+      </View>
+    );
+  }
 }
 
 LocationPulseLoader.propTypes = {
   interval: React.PropTypes.number,
   size: React.PropTypes.number,
   pulseMaxSize: React.PropTypes.number,
-  avatar: React.PropTypes.string.isRequired,
+  source: Image.propTypes.source.isRequired,
   avatarBackgroundColor: React.PropTypes.string,
   pressInValue: React.PropTypes.number,
   pressDuration: React.PropTypes.number,
@@ -115,4 +117,3 @@ LocationPulseLoader.defaultProps = {
   backgroundColor: '#ED225B55',
   getStyle: undefined,
 };
-
