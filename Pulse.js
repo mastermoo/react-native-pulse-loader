@@ -6,7 +6,7 @@ const { height, width } = Dimensions.get('window');
 export default class Pulse extends React.Component {
 	constructor(props) {
 		super(props);
-	
+
 		this.anim = new Animated.Value(0);
 	}
 
@@ -15,6 +15,7 @@ export default class Pulse extends React.Component {
 			toValue: 1,
 			duration: this.props.interval,
 			easing: Easing.in,
+			useNativeDriver: true
 		})
 		.start();
 	}
@@ -50,7 +51,7 @@ export default class Pulse extends React.Component {
 				/>
 			</View>
 		);
-	}	
+	}
 }
 
 

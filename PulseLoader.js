@@ -6,7 +6,7 @@ import Pulse from './Pulse';
 export default class LocationPulseLoader extends React.Component {
 	constructor(props) {
 		super(props);
-	
+
 		this.state = {
 			circles: []
 		};
@@ -35,6 +35,7 @@ export default class LocationPulseLoader extends React.Component {
 			toValue: this.props.pressInValue,
 			duration: this.props.pressDuration,
 			easing: this.props.pressInEasing,
+			useNativeDriver: true
 		}).start(() => clearInterval(this.setInterval));
 	}
 
@@ -43,6 +44,7 @@ export default class LocationPulseLoader extends React.Component {
 			toValue: 1,
 			duration: this.props.pressDuration,
 			easing: this.props.pressOutEasing,
+			useNativeDriver: true
 		}).start(this.setCircleInterval.bind(this));
 	}
 
@@ -85,7 +87,7 @@ export default class LocationPulseLoader extends React.Component {
 				</TouchableOpacity>
 			</View>
 		);
-	}	
+	}
 }
 
 LocationPulseLoader.propTypes = {
@@ -115,4 +117,3 @@ LocationPulseLoader.defaultProps = {
   backgroundColor: '#ED225B55',
   getStyle: undefined,
 };
-
