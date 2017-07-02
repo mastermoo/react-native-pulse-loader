@@ -14,8 +14,7 @@ export default class Pulse extends React.Component {
 		Animated.timing(this.anim, {
 			toValue: 1,
 			duration: this.props.interval,
-			easing: Easing.in,
-			useNativeDriver: true
+			easing: Easing.in
 		})
 		.start();
 	}
