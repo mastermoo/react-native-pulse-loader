@@ -77,12 +77,12 @@ export default class LocationPulseLoader extends React.Component {
 				>
 					<Image
 						source={{ uri: avatar }}
-						style={{
+						style={[{
 							width: size,
 							height: size,
 							borderRadius: size/2,
 							backgroundColor: avatarBackgroundColor
-						}}
+						}, this.props.avatarStyle]}
 					/>
 				</TouchableOpacity>
 			</View>
@@ -101,6 +101,7 @@ LocationPulseLoader.propTypes = {
   borderColor: React.PropTypes.string,
   backgroundColor: React.PropTypes.string,
   getStyle: React.PropTypes.func,
+	avatarStyle: Image.propTypes.style
 };
 
 LocationPulseLoader.defaultProps = {
@@ -116,4 +117,5 @@ LocationPulseLoader.defaultProps = {
   borderColor: '#D8335B',
   backgroundColor: '#ED225B55',
   getStyle: undefined,
+	avatarStyle: {}
 };
