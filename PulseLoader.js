@@ -6,7 +6,7 @@ import Pulse from './Pulse';
 export default class LocationPulseLoader extends React.Component {
 	constructor(props) {
 		super(props);
-	
+
 		this.state = {
 			circles: []
 		};
@@ -18,6 +18,10 @@ export default class LocationPulseLoader extends React.Component {
 
 	componentDidMount() {
 		this.setCircleInterval();
+	}
+
+	componentWillUnmount(){
+		clearInterval(this.setInterval);
 	}
 
 	setCircleInterval() {
@@ -35,6 +39,7 @@ export default class LocationPulseLoader extends React.Component {
 			toValue: this.props.pressInValue,
 			duration: this.props.pressDuration,
 			easing: this.props.pressInEasing,
+			useNativeDriver: true
 		}).start(() => clearInterval(this.setInterval));
 	}
 
@@ -43,6 +48,7 @@ export default class LocationPulseLoader extends React.Component {
 			toValue: 1,
 			duration: this.props.pressDuration,
 			easing: this.props.pressOutEasing,
+			useNativeDriver: true
 		}).start(this.setCircleInterval.bind(this));
 	}
 
@@ -74,31 +80,32 @@ export default class LocationPulseLoader extends React.Component {
 					}}
 				>
 					<Image
-						source={{ uri: avatar }}
-						style={{
+						source={avatar}
+						style={[{
 							width: size,
 							height: size,
 							borderRadius: size/2,
 							backgroundColor: avatarBackgroundColor
-						}}
+						}, this.props.avatarStyle]}
 					/>
 				</TouchableOpacity>
 			</View>
 		);
-	}	
+	}
 }
 
 LocationPulseLoader.propTypes = {
   interval: React.PropTypes.number,
   size: React.PropTypes.number,
   pulseMaxSize: React.PropTypes.number,
-  avatar: React.PropTypes.string.isRequired,
+  avatar: Image.propTypes.source.isRequired,
   avatarBackgroundColor: React.PropTypes.string,
   pressInValue: React.PropTypes.number,
   pressDuration: React.PropTypes.number,
   borderColor: React.PropTypes.string,
   backgroundColor: React.PropTypes.string,
   getStyle: React.PropTypes.func,
+	avatarStyle: Image.propTypes.style
 };
 
 LocationPulseLoader.defaultProps = {
@@ -114,5 +121,5 @@ LocationPulseLoader.defaultProps = {
   borderColor: '#D8335B',
   backgroundColor: '#ED225B55',
   getStyle: undefined,
+	avatarStyle: {}
 };
-
