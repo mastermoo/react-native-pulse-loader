@@ -80,7 +80,7 @@ export default class LocationPulseLoader extends React.Component {
 					}}
 				>
 					<Image
-						source={{ uri: avatar }}
+						source={avatar}
 						style={[{
 							width: size,
 							height: size,
@@ -98,7 +98,7 @@ LocationPulseLoader.propTypes = {
   interval: React.PropTypes.number,
   size: React.PropTypes.number,
   pulseMaxSize: React.PropTypes.number,
-  avatar: React.PropTypes.string.isRequired,
+  avatar: Image.propTypes.source.isRequired,
   avatarBackgroundColor: React.PropTypes.string,
   pressInValue: React.PropTypes.number,
   pressDuration: React.PropTypes.number,
