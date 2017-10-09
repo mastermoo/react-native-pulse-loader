@@ -74,7 +74,7 @@ export default class LocationPulseLoader extends React.Component {
 					}}
 				>
 					<Image
-						source={avatar.uri ? { uri: avatar.uri } : avatar}
+						source={avatar && avatar.uri ? { uri: avatar.uri } : avatar}
 						style={{
 							width: size,
 							height: size,
